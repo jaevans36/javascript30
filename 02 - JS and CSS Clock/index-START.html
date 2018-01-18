@@ -71,11 +71,12 @@
   </style>
 
   <script>
-
-    const secondHand = document.querySelector('.second-hand');
-    const minuteHand = document.querySelector('.min-hand');
-    const hourHand = document.querySelector('.hour-hand');
-    const allHands = document.querySelectorAll('.hand');
+    const clock = {
+      secondHand: document.querySelector('.second-hand'),
+      minuteHand: document.querySelector('.min-hand'),
+      hourHand: document.querySelector('.hour-hand'),
+      allHands: document.querySelectorAll('.hand')
+    };
 
     function setDate() {
       // get times
@@ -90,15 +91,15 @@
       const hoursDegrees = ((hours / 60) * 360) + 90;
 
       if (secondsDegrees === 90) {
-        allHands.forEach(hand => hand.style.transition = 'none');
+        clock.allHands.forEach(hand => hand.style.transition = 'none');
       } else {
-        allHands.forEach(hand => hand.style.transition = '');
+        clock.allHands.forEach(hand => hand.style.transition = '');
       }
 
       // clock workings
-      secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
-      minuteHand.style.transform = `rotate(${minutesDegrees}deg)`;
-      hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
+      clock.secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+      clock.minuteHand.style.transform = `rotate(${minutesDegrees}deg)`;
+      clock.hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
 
       console.log(hours + ':' + minutes + ':' + seconds);
     }
