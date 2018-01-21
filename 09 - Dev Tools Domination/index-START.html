@@ -18,28 +18,73 @@
     }
 
     // Regular
+    console.log('hello');
 
     // Interpolated
+    console.log('Hello I am a %s string!', 'BIG');
+
+    //ES6 way
+    var myStringDesc = 'BIG';
+    console.log(`Hello I am a ${myStringDesc} string!`);
 
     // Styled
+    console.log('%cI am some text', 'color: red;');
 
     // warning!
+    console.warn('Something went wrong');
 
     // Error :|
+    console.error('This is an error');
 
     // Info
+    console.info('I am a fun fact');
 
     // Testing
+    console.assert(1 === 1, 'This will only display if it is wrong');
+    const p = document.querySelector('p');
+
+    console.assert(p.classList.contains('ouch'), 'That is wrong!');
 
     // clearing
+    console.clear();
 
     // Viewing DOM Elements
+    console.dir(p);
 
     // Grouping together
+    dogs.forEach(dog => {
+      console.group(`${dog.name}`);
+      // groupCollapsed will console log but everything will be collapsed
+      // console.groupCollapsed(`${dog.name}`);
+      console.log(`This is ${dog.name}`);
+      console.log(`${dog.name} is ${dog.age} years old`);
+      console.log(`${dog.name} is ${dog.age * 7} dog years old`);
+      console.groupEnd(`${dog.name}`);
+    })
 
     // counting
 
+    console.count('Jay');
+    console.count('Jay');
+    console.count('David');
+    console.count('Jay');
+    console.count('David');
+    console.count('Jay');
+
+
     // timing
+
+    console.time('fetching data');
+    fetch('https://api.github.com/users/jaevans36')
+      .then(data => data.json())
+      .then(data => {
+        console.timeEnd('fetching data');
+        console.log(data);
+      });
+
+    // table
+
+    console.table(dogs);
 
   </script>
 </body>
