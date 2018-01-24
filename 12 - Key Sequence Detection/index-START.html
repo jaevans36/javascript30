@@ -7,9 +7,19 @@
 </head>
 <body>
 <script>
+  const keys = [];
+  const secretCode = "jaymond";
+
   window.addEventListener('keyup', (e) => {
-    console.log(e);
+
+    keys.push(e.key);
+    keys.splice(-secretCode.length - 1, keys.length - secretCode.length);
+
+    if(keys.join('').includes(secretCode)) {
+      console.log('Yey you know the code!');
+    }
   });
+
 </script>
 </body>
 </html>
