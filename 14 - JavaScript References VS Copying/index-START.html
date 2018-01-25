@@ -8,13 +8,19 @@
 
   <script>
     // start with strings, numbers and booleans
+    let stringEx = "My string";
+    let numberEx = 2002;
+    let boolEx = true;
 
     // Let's say we have an array
     const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
 
     // and we want to make a copy of it.
+    const players2 = players;
 
     // You might think we can just do something like this:
+    players2[3] = 'Jay';
+    console.log(players2);
 
     // however what happens when we update that array?
 
@@ -25,12 +31,20 @@
     // Why? It's because that is an array reference, not an array copy. They both point to the same array!
 
     // So, how do we fix this? We take a copy instead!
+    const myArray = players.slice();
+    myArray[3] = 'Jay';
+    console.log(myArray);
+    console.log(players);
 
     // one way
 
     // or create a new array and concat the old one in
+    const myArray2 = [].concat(players);
 
     // or use the new ES6 Spread
+    const myArray3 = [...players];
+
+    const myArray4 = Array.from(players);
 
     // now when we update it, the original one isn't changed
 
@@ -44,11 +58,37 @@
 
     // and think we make a copy:
 
+    const newObject = person;
+    newObject.id = 2000;
+    console.log(person); // Person will include the id
+
     // how do we take a copy instead?
 
+    const newObject2 = Object.assign({}, person, {id: 2000});
+
     // We will hopefully soon see the object ...spread
+    const newObject3 = {...person};
+    console.log(newObject3);
 
     // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+
+    const jay = {
+      name: 'Jay',
+      age: 100,
+      social: {
+        twitter: '@jaymond36',
+        facebook: 'jay.evans'
+      }
+    }
+    console.log(jay);
+
+    // Object.assign() only does one level deep, so social will receive the changes to the copy
+    const jayCopy = Object.assign({}, jay);
+
+    console.log(jayCopy);
+
+    // JSON.stringify changes Jay to a string, JSON.parse changes the string back to a new copy of the object
+    const jayCopy2 = JSON.parse(JSON.stringify(jay));
 
   </script>
 
