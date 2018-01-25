@@ -30,6 +30,19 @@
   const itemsList = document.querySelector('.plates');
   const items = [];
 
+  function addItem(e) {
+    e.preventDefault();
+    const text = (this.querySelector('[name=item]')).value;
+    const item = {
+      text: 'Item Name',
+      done: false
+    }
+  }
+
+  // Using submit as the event will allow us to listen on things like enter
+  // or external elements that submit, rather than using click
+  addItems.addEventListener('submit', addItem);
+
 </script>
 
 
