@@ -28,20 +28,79 @@
 <script>
   const addItems = document.querySelector('.add-items');
   const itemsList = document.querySelector('.plates');
-  const items = [];
+  const items = JSON.parse(localStorage.getItem('items')) || [];
 
   function addItem(e) {
+    // Prevent the submit button from doing default behaviour
     e.preventDefault();
+
+    // Get the text from the input field when addItem is called
     const text = (this.querySelector('[name=item]')).value;
+
+    // Add the text to an object called item
     const item = {
-      text: 'Item Name',
+      text: text,
       done: false
+    };
+
+    // Push item to items array
+    items.push(item);
+
+    // Use our populateList function to add the content
+    // to the page.
+    populateList(items, itemsList);
+
+    // Add items to localStorage
+    localStorage.setItem('items', JSON.stringify(items));
+
+    // Clear the input field
+    this.reset();
+  }
+
+  // Passing in an empty array as default will avoid errors,
+  // if we forget to pass anything in.
+  function populateList(plates = [], platesList) {
+    // map will go over each item in the array and return
+    // some HTML for inside the platesList and .join() will
+    // connect all the returned strings together.
+    platesList.innerHTML = plates.map((plate, i) => {
+      return `
+        <li>
+          <input type="checkbox" data-index="${i}" id="item${i}" ${plate.done ? 'checked' : ''}/>
+          <label for="item${i}">${plate.text}</label>
+        <li>
+      `;
+    }).join('');
+  }
+
+  function toggleDone(e) {
+    // Event delegation - listening on a parent element
+    // to but running the event on a child element.
+    if(!e.target.matches('input')) {
+      // Skips unless it's an input
+      return;
     }
+
+    const el = e.target;
+    // This will print the data element from the item clicked
+    // console.log(el.dataset.index);
+    const index = el.dataset.index;
+    // Toggling between whether the value is true or false
+    // depending on whether items[index].done is true or not
+    items[index].done = !items[index].done;
+
+    // Add items to localStorage
+    localStorage.setItem('items', JSON.stringify(items));
+
+    populateList(items, itemsList);
   }
 
   // Using submit as the event will allow us to listen on things like enter
   // or external elements that submit, rather than using click
   addItems.addEventListener('submit', addItem);
+  itemsList.addEventListener('click', toggleDone);
+  // Parse the localStorage string back into JSON
+  populateList(items, itemsList);
 
 </script>
 
