@@ -54,8 +54,10 @@ const sortedBands = bands.sort(function(a, b) {
   return (strip(a) > strip(b) ? 1 : -1)
 });
 
-document.querySelector('#bands').innerHTML = 
-    sortedBands.map(band => `<li>${band}</li>`).join('');
+document.querySelector('#bands').innerHTML =
+    sortedBands
+      .map(band => `<li>${band}</li>`)
+      .join('');
 
 </script>
 
